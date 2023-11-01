@@ -67,11 +67,8 @@ app.delete('/deleteItem/:id',async (req,res)=>{
   try{
     const {id}=req.params;
     console.log(req.params);
-    console.log(req.body);
-    const item=await Item.findByIdAndDelete({_id:id})
+    await Item.findByIdAndDelete({_id:id})
     // res.json(users,quiz)
-    res.send(item)
-
   }catch(err){
     console.log(err);
     res.send(err)
@@ -79,12 +76,9 @@ app.delete('/deleteItem/:id',async (req,res)=>{
   }
 })
 
-
-
 mongoose.connection.once("open", () => {
     console.log("connected to mongoDB");
     app.listen(8000, () => {
       console.log("Server is listening on port 8000");
     });
-  });
-  
+});

@@ -12,8 +12,7 @@ function App() {
     setItems(response.data);
  
   };
-  console.log("Items length",items.length);
-  console.log("items",items);
+  
   useEffect(() => {
     fetchItems();
   }, []);
