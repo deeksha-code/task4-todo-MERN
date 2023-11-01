@@ -1,15 +1,14 @@
-import { useState } from "react";
+import useItemsContent from "../hooks/use-items-context";
 
-
-function ItemCreate({onCreate}){
-    const [title,setTitle]=useState('');
-
+function ItemCreate(){
+  
+    const {title,setTitle,createItem}=useItemsContent()
     const handleChange=(event)=>{
         setTitle(event.target.value)
     }
     const handleClick=(event)=>{
         event.preventDefault();
-        onCreate(title);
+        createItem(title);
         setTitle("");
 
     }

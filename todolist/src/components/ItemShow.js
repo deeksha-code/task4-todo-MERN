@@ -3,13 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import ItemEdit from "./ItemEdit"
+import useItemsContent from "../hooks/use-items-context";
 
-function ItemShow({ item,onDelete, onEdit }) {
+function ItemShow({ item}) {
     const [showEdit, setShowEdit] = useState(false);
+    const { editItemById,deleteItemById}=useItemsContent();
 
 
     const handleDeleteClick = () => {
-      onDelete(item._id);
+      deleteItemById(item._id);
     };
 
     const handleEditClick = () => {
@@ -17,7 +19,7 @@ function ItemShow({ item,onDelete, onEdit }) {
     };
 
     const handleSubmit = (id, newTitle) => {
-      onEdit(id, newTitle);
+      editItemById(id, newTitle);
       setShowEdit(false);
     };
 

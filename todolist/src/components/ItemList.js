@@ -1,9 +1,11 @@
-import ItemShow from "./ItemShow"
+import ItemShow from "./ItemShow";
+import useItemsContent from "../hooks/use-items-context";
 
-function ItemList({items,onDelete,onEdit}) {
+function ItemList() {
+  const {items}=useItemsContent();
   const renderedItems = items.map((item) => {
     return (
-      <ItemShow key={item._id} item={item} onEdit={onEdit} onDelete={onDelete} />
+      <ItemShow key={item._id} item={item} />
     );
   });
 
