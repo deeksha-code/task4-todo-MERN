@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     fetchItems();
   }, [items]);
-
+  // console.log(items);
   return (
     <div>
       <h1>TO Do List APP</h1>

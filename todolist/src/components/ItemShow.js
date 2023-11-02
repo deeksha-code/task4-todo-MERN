@@ -30,7 +30,7 @@ function ItemShow({ item}) {
 
     return (
         <div className="display-item">
-        <p>{content}</p>
+        {content}
         <FontAwesomeIcon
             icon={faPenToSquare}
             className="font-awesome"
