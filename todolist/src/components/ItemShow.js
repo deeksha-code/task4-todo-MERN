@@ -8,9 +8,10 @@ import useItemsContent from "../hooks/use-items-context";
 function ItemShow({ item}) {
     const [showEdit, setShowEdit] = useState(false);
     const { editItemById,deleteItemById}=useItemsContent();
+   
+  
 
-
-    const handleDeleteClick = () => {
+    const handleDeleteClick =  () => {
       deleteItemById(item._id);
     };
 
@@ -21,6 +22,7 @@ function ItemShow({ item}) {
     const handleSubmit = (id, newTitle) => {
       editItemById(id, newTitle);
       setShowEdit(false);
+     
     };
 
     let content = <h3>{item.itemName}</h3>;
@@ -31,11 +33,7 @@ function ItemShow({ item}) {
     return (
         <div className="display-item">
         {content}
-        <FontAwesomeIcon
-            icon={faPenToSquare}
-            className="font-awesome"
-            onClick={handleEditClick}
-        />
+        <FontAwesomeIcon icon={faPenToSquare} className="font-awesome" onClick={handleEditClick}/>
         <FontAwesomeIcon icon={faTimes} onClick={handleDeleteClick} />
         </div>
     );

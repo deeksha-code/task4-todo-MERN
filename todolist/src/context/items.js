@@ -1,55 +1,54 @@
-import { createContext, useState } from "react";
+import { createContext,useState } from "react";
 import axios from "axios";
-
 
 const itemsContext = createContext();
 function Provider({ children }) {
- const [items, setItems] = useState([]);
-   const [title, setTitle] = useState("");
+  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState("");
 
   const fetchItems = async () => {
     const response = await axios.get("http://localhost:8000/getItems");
     setItems(response.data);
   };
 
-   const editItemById = async (id, newTitle) => {
-     const response = await axios.put(
-       `http://localhost:8000/updateItem/${id}`,
-       {
-         title: newTitle,
-       }
-     );
-     const updatedItems = items.map((item) => {
-       if (item.id === id) {
-         return { ...item, ...response.data };
-       }
-       return item;
-     });
-     setItems(updatedItems);
-   };
+  const editItemById = async (id, newTitle) => {
 
-   const deleteItemById = async (id) => {
-      await axios.delete(`http://localhost:8000/deleteItem/${id}`);
+    const itemAfterUpdate = await axios.put(
+      `http://localhost:8000/updateItem/${id}`,
+      {
+        title: newTitle,
+      }
+    );
 
-      const updatedItems = items.filter((item) => {
-        return item.id !== id;
-      });
+    const updatedItems=items.map((item)=>{
+          if (item._id===itemAfterUpdate.data._id) {
+            return {...item,...itemAfterUpdate.data}            
+          }
+          return item;
+    })
+    setItems(updatedItems);
+  };
 
-      setItems(updatedItems);
-    };
+  const deleteItemById = async (id) => {
+    const deletedItem = await axios.delete(
+      `http://localhost:8000/deleteItem/${id}`
+    );
 
-     const createItem = async (title) => {
-       const response = await axios.post("http://localhost:8000/createItem", {
-         title,
-       });
-       const updatedItems = [...items, response.data];
+    const updatedItems = items.filter((item) => {
+      return item._id !== deletedItem.data._id;
+    });
 
-       setItems(updatedItems);
-     };
+    setItems(updatedItems);
+  };
 
+  const createItem = async (title) => {
+    const response = await axios.post("http://localhost:8000/createItem", {
+      title,
+    });
+    const updatedItems = [...items, response.data];
 
-
-
+    setItems(updatedItems);
+  };
 
   const valueToShare = {
     items,
@@ -59,7 +58,7 @@ function Provider({ children }) {
     fetchItems,
     editItemById,
     deleteItemById,
-    createItem
+    createItem,
   };
 
   return (

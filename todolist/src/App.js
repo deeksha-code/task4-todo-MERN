@@ -5,20 +5,20 @@ import ItemList from "./components/ItemList";
 import useItemsContext from "./hooks/use-items-context";
 
 function App() {
-  const { items, fetchItems } = useItemsContext();
+  const {fetchItems } = useItemsContext();
 
   useEffect(() => {
     fetchItems();
-  }, [items]);
+  }, []);
   // console.log(items);
   return (
-    <div>
+    <>
       <h1>TO Do List APP</h1>
       <div className="container">
         <ItemCreate />
         <ItemList />
       </div>
-    </div>
+    </>
   );
 }
 
