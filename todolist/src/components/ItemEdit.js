@@ -1,8 +1,11 @@
 import { useState } from "react";
+import useItemsContent from "../hooks/use-items-context";
 
 function ItemEdit({ item, onSubmit }) {
+  const { items } = useItemsContent();
   const [title, setTitle] = useState(item.title);
 
+  // console.log(items);
   const handleChange = (event) => {
     setTitle(event.target.value);
   };

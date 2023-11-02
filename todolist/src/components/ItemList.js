@@ -8,7 +8,7 @@ function ItemList() {
       <ItemShow key={item._id} item={item} />
     );
   });
-
+  
 
   return (
         <div className="display-content">{renderedItems}</div>
