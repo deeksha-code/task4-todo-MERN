@@ -4,7 +4,7 @@ const cors=require('cors');
 
 const Item = require('./models/itemModel');
 
-mongoose.connect("mongodb://127.0.0.1:27017/todo");
+mongoose.connect("mongodb+srv://deekshashetty736:liQEsHPRTvrM7Lrj@cluster0.ardch.mongodb.net/");
 
 const app=express();
 app.use(cors());
