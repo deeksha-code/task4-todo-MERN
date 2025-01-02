@@ -5,12 +5,12 @@ import ItemList from "./components/ItemList";
 import useItemsContext from "./hooks/use-items-context";
 
 function App() {
-  const {fetchItems } = useItemsContext();
+  const { fetchItems } = useItemsContext();
 
   useEffect(() => {
     fetchItems();
-  }, []);
-  // console.log(items);
+  }, [fetchItems]);  // Add fetchItems to the dependency array
+
   return (
     <>
       <h1>TO Do List APP</h1>
