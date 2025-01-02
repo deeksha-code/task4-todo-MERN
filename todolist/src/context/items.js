@@ -1,37 +1,35 @@
-import { createContext,useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
 const itemsContext = createContext();
+
 function Provider({ children }) {
   const [items, setItems] = useState([]);
   const [title, setTitle] = useState("");
 
   const fetchItems = async () => {
-    const response = await axios.get("http://localhost:8000/getItems");
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/getItems`);
     setItems(response.data);
   };
 
   const editItemById = async (id, newTitle) => {
-
     const itemAfterUpdate = await axios.put(
-      `http://localhost:8000/updateItem/${id}`,
-      {
-        title: newTitle,
-      }
+      `${process.env.REACT_APP_API_URL}/updateItem/${id}`,
+      { title: newTitle }
     );
 
-    const updatedItems=items.map((item)=>{
-          if (item._id===itemAfterUpdate.data._id) {
-            return {...item,...itemAfterUpdate.data}            
-          }
-          return item;
-    })
+    const updatedItems = items.map((item) => {
+      if (item._id === itemAfterUpdate.data._id) {
+        return { ...item, ...itemAfterUpdate.data };
+      }
+      return item;
+    });
     setItems(updatedItems);
   };
 
   const deleteItemById = async (id) => {
     const deletedItem = await axios.delete(
-      `http://localhost:8000/deleteItem/${id}`
+      `${process.env.REACT_APP_API_URL}/deleteItem/${id}`
     );
 
     const updatedItems = items.filter((item) => {
@@ -42,7 +40,7 @@ function Provider({ children }) {
   };
 
   const createItem = async (title) => {
-    const response = await axios.post("http://localhost:8000/createItem", {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/createItem`, {
       title,
     });
     const updatedItems = [...items, response.data];
