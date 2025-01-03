@@ -8,9 +8,12 @@ function Provider({ children }) {
   const [title, setTitle] = useState("");
 
   const fetchItems = async () => {
+    console.log("REACT_APP_API_URL",process.env.REACT_APP_API_URL);
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/getItems`);
+    console.log("response data",response.data); // Inspect the response here
     setItems(response.data);
   };
+
 
   const editItemById = async (id, newTitle) => {
     const itemAfterUpdate = await axios.put(
